@@ -8,24 +8,9 @@ SUPABASE_URL,
 SUPABASE_KEY
 );
 
-/* ============================================================
-2. VARIABLES GLOBALES
-============================================================ */
-
 let selectedNodeIds = [];
 let currentFontFace = "Arial";
-
-/*
-
-    Permet d'empêcher les événements déclenchés par Realtime
-
-    de provoquer une nouvelle écriture en boucle.
-    */
-    let applyingRemoteChange = false;
-
-/* ============================================================
-3. CACHE LOCAL
-============================================================ */
+let applyingRemoteChange = false;
 
 const savedNodes =
 localStorage.getItem("proxemieNodes");
@@ -51,12 +36,7 @@ let edgesArray = savedEdges
 ? JSON.parse(savedEdges)
 : [];
 
-/*
-
-    Les anciennes liaisons Vis.js n'ont éventuellement pas
-
-    d'identifiant. On leur en donne un.
-    */
+/* Les anciennes liaisons Vis.js n'ont éventuellement pas d'identifiant. On leur en donne un. */
     edgesArray = edgesArray.map(edge => {
 
 if (!edge.id) {
@@ -674,7 +654,7 @@ function toggleBold() {
 
 const btn =
 document.getElementById(
-"éal"
+"éale"
 );
 
 if (!btn) return;
@@ -858,20 +838,11 @@ edges.get()
 );
 }
 
-/*
 
-    Compatibilité avec votre ancienne fonction.
-    */
     function saveData() {
     saveLocalData();
     }
 
-/*
-
-    Les modifications locales sont sauvegardées
-
-    dans le navigateur uniquement.
-    */
     nodes.on("*", () => {
 
 if (!applyingRemoteChange) {
@@ -1811,32 +1782,12 @@ document.addEventListener(
 }
 
 /* ============================================================
-28. DÉMARRAGE
+28. ENTREE
 ============================================================ */
 
 (async function init() {
-
-/*
-
-    Affichage immédiat du cache local.
-
-    La toile reste donc utilisable même avant
-
-    la réponse de Supabase.
-    */
-
 saveLocalData();
-
-/*
-
-    Connexion Realtime.
-    */
     setupRealtime();
-
-/*
-
-    Chargement de la version distante.
-    */
     await loadFromSupabase();
 
 })();
