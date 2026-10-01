@@ -8,24 +8,9 @@ SUPABASE_URL,
 SUPABASE_KEY
 );
 
-/* ============================================================
-2. VARIABLES GLOBALES
-============================================================ */
-
 let selectedNodeIds = [];
 let currentFontFace = "Arial";
-
-/*
-
-    Permet d'empêcher les événements déclenchés par Realtime
-
-    de provoquer une nouvelle écriture en boucle.
-    */
-    let applyingRemoteChange = false;
-
-/* ============================================================
-3. CACHE LOCAL
-============================================================ */
+let applyingRemoteChange = false;
 
 const savedNodes =
 localStorage.getItem("proxemieNodes");
@@ -51,12 +36,7 @@ let edgesArray = savedEdges
 ? JSON.parse(savedEdges)
 : [];
 
-/*
-
-    Les anciennes liaisons Vis.js n'ont éventuellement pas
-
-    d'identifiant. On leur en donne un.
-    */
+/* Les anciennes liaisons Vis.js n'ont éventuellement pas d'identifiant. On leur en donne un. */
     edgesArray = edgesArray.map(edge => {
 
 if (!edge.id) {
@@ -100,8 +80,11 @@ font: {
 },
 
 borderWidth: 1,
-shadow: true
-
+shadow: true,
+    scaling: {
+    min: 10,
+    max: 20
+  }
 },
 
 edges: {
@@ -122,11 +105,12 @@ physics: {
 enabled: true,
 
 barnesHut: {
-  gravitationalConstant: -3000,
-  centralGravity: 0.3,
-  springLength: 200,
+  gravitationalConstant: -2000,
+  centralGravity: 0.15,
+  springLength: 300,
   springConstant: 0.04,
-  damping: 0.09
+  damping: 0.09,
+  avoidOverlap: 0,
 },
 
 stabilization: {
@@ -137,7 +121,8 @@ stabilization: {
 
 interaction: {
 hover: true,
-selectConnectedEdges: false
+selectConnectedEdges: false,
+dragNodes: true
 }
 };
 
@@ -674,7 +659,7 @@ function toggleBold() {
 
 const btn =
 document.getElementById(
-"éal"
+"éale"
 );
 
 if (!btn) return;
@@ -858,20 +843,11 @@ edges.get()
 );
 }
 
-/*
 
-    Compatibilité avec votre ancienne fonction.
-    */
     function saveData() {
     saveLocalData();
     }
 
-/*
-
-    Les modifications locales sont sauvegardées
-
-    dans le navigateur uniquement.
-    */
     nodes.on("*", () => {
 
 if (!applyingRemoteChange) {
@@ -1811,32 +1787,12 @@ document.addEventListener(
 }
 
 /* ============================================================
-28. DÉMARRAGE
+28. ENTREE
 ============================================================ */
 
 (async function init() {
-
-/*
-
-    Affichage immédiat du cache local.
-
-    La toile reste donc utilisable même avant
-
-    la réponse de Supabase.
-    */
-
 saveLocalData();
-
-/*
-
-    Connexion Realtime.
-    */
     setupRealtime();
-
-/*
-
-    Chargement de la version distante.
-    */
     await loadFromSupabase();
 
 })();
