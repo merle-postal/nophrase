@@ -105,8 +105,8 @@ physics: {
 enabled: true,
 
 barnesHut: {
-  gravitationalConstant: -2400,
-  centralGravity: 0.2,
+  gravitationalConstant: -2000,
+  centralGravity: 0.15,
   springLength: 300,
   springConstant: 0.04,
   damping: 0.09,
