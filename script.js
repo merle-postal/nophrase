@@ -109,11 +109,11 @@ width: 1,
 
 color: {
   color: "#848484",
-  highlight: "#000000"
+  highlight: "#000000",
 },
 
 smooth: {
-  type: "continuous"
+  type: "continuous",
 }
 
 },
