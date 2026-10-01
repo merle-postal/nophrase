@@ -31,13 +31,13 @@
 		z-index: 1000; border:
 		1px solid #ccc; } 
 		
-		/* Style quand on clique pour déplacer */ #ui-layer:active {
+		#ui-layer:active {
 		cursor: move; } 
 		
-		/* La classe .active pour les boutons (Gras/Italique) */ .active { 
+		.active { 
 		background-color: #000 !important; color: #fff !important; border: 1px solid #000; } /* Style général des boutons */ button { cursor: pointer; border: 1px solid #999; background: #fff; padding: 5px 10px; margin: 2px; font-size: 14px; } button:hover { background: #fff; } /* Zone de texte */ textarea { width: 100%; box-sizing: border-box; margin-bottom: 10px; padding: 5px; font-family: sans-serif; font-size: 14px; resize: vertical; border: 1px solid #ccc; border-radius: 4px; } /* Inputs et selects */ input[type="text"], select { padding: 5px; margin-top: 5px; border: 1px solid #fff; border-radius: 0px; width: 100%; box-sizing: border-box; } /* Petit texte de statut */ #status { font-size: 11px; color: #666; margin-bottom: 8px; font-style: italic; border-bottom: 1px solid #eee; padding-bottom: 4px; } hr { border: 0; border-top: 1px solid #ddd; margin: 10px 0; } label { font-size: 12px; font-weight: bold; display: block; margin-bottom: 3px; } #fontFace { background-color: #ffffff; color: #000000; /* Bordures et forme */ border: 1px solid #fff; border-radius: 0px; /* Dimensions et espacement */ padding: 5px 8px; font-size: 14px; font-family: sans-serif; /* Curseur */ cursor: pointer; /* Tentative de forçage pour les navigateurs modernes */ appearance: none; -webkit-appearance: none; -moz-appearance: none; } /* Indicateur de connexion Supabase */ #ende { font-size: 11px; color: #666; margin-bottom: 8px; font-style: italic; } </style> </head> <body> <!-- ZONE DE L'INTERFACE (UI) --> <div id="ui-layer">
 
-<!-- Message de statut -->
+<!-- Statut/Messages -->
 <div id="status">Maniez un lieu pour vous y lier.</div>
 
 <!-- Déplacements -->
