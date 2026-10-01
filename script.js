@@ -107,7 +107,7 @@ enabled: true,
 barnesHut: {
   gravitationalConstant: -2000,
   centralGravity: 0.15,
-  springLength: 300,
+  springLength: 350,
   springConstant: 0.04,
   damping: 0.09,
   avoidOverlap: 0,
