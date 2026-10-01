@@ -80,8 +80,11 @@ font: {
 },
 
 borderWidth: 1,
-shadow: true
-
+shadow: true,
+    scaling: {
+    min: 10,
+    max: 20
+  }
 },
 
 edges: {
@@ -102,11 +105,12 @@ physics: {
 enabled: true,
 
 barnesHut: {
-  gravitationalConstant: -3000,
-  centralGravity: 0.3,
-  springLength: 200,
+  gravitationalConstant: -2400,
+  centralGravity: 0.2,
+  springLength: 300,
   springConstant: 0.04,
   damping: 0.09
+  avoidOverlap: 0
 },
 
 stabilization: {
@@ -118,6 +122,7 @@ stabilization: {
 interaction: {
 hover: true,
 selectConnectedEdges: false
+dragNodes: true
 }
 };
 
