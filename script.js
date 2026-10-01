@@ -109,8 +109,8 @@ barnesHut: {
   centralGravity: 0.2,
   springLength: 300,
   springConstant: 0.04,
-  damping: 0.09
-  avoidOverlap: 0
+  damping: 0.09,
+  avoidOverlap: 0,
 },
 
 stabilization: {
@@ -121,7 +121,7 @@ stabilization: {
 
 interaction: {
 hover: true,
-selectConnectedEdges: false
+selectConnectedEdges: false,
 dragNodes: true
 }
 };
