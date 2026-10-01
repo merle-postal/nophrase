@@ -113,8 +113,20 @@ barnesHut: {
   avoidOverlap: 0,
 },
 
+    collision: {
+    enabled: true,
+    overlap: 0.2, // Tolérance minimale (0 = pas de chevauchement autorisé)
+    backfaceCulling: false,
+
+    repulsion: {
+      nodeDistance: 100
+      dynamic: true    
+    }
+  },
+    
 stabilization: {
-  iterations: 150
+  iterations: 200,
+  fit: true
 }
 
 },
