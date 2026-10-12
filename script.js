@@ -350,6 +350,10 @@ const boldVal =
 éale.classList.contains("active")
 ? "bold "
 : "";
+    console.log(
+  "Gras activé :",
+  btn.classList.contains("active")
+);
 
 const entique =
 document.getElementById(
