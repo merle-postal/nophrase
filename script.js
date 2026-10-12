@@ -708,7 +708,7 @@ setTimeout(() => {
 } else {
 
 setStatus(
-  "Rien ne contenait ce terme. Contenez ce terme ?"
+  "Rien ne contenait ce terme. Contenez ce terme ?" +
     "La phrase est-elle incapable de contenir \n" +
   "le\n" +
     "terme"
