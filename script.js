@@ -119,7 +119,7 @@ barnesHut: {
     backfaceCulling: false,
 
     repulsion: {
-      nodeDistance: 100
+      nodeDistance: 100,
       dynamic: true    
     }
   },
