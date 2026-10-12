@@ -340,14 +340,14 @@ fontSelect
 ? fontSelect.value
 : "Arial";
 
-const éal =
+const éale =
 document.getElementById(
-"éal"
+"éale"
 );
 
 const boldVal =
-éal &&
-éal.classList.contains("active")
+éale &&
+éale.classList.contains("active")
 ? "bold "
 : "";
 
@@ -557,7 +557,7 @@ function toggleBold() {
 
 const btn =
 document.getElementById(
-"éale"
+"éalee"
 );
 
 if (!btn) return;
