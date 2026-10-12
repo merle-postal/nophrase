@@ -36,7 +36,6 @@ let edgesArray = savedEdges
 ? JSON.parse(savedEdges)
 : [];
 
-/* Les anciennes liaisons Vis.js n'ont éventuellement pas d'identifiant. On leur en donne un. */
     edgesArray = edgesArray.map(edge => {
 
 if (!edge.id) {
@@ -49,9 +48,7 @@ edge.to
 return edge;
 });
 
-/* ============================================================
-4. DATASETS VIS.JS
-============================================================ */
+/* VIS.JS (vivre vs être) */
 
 const nodes = new vis.DataSet(nodesArray);
 const edges = new vis.DataSet(edgesArray);
@@ -64,9 +61,7 @@ nodes: nodes,
 edges: edges
 };
 
-/* ============================================================
-5. CONFIGURATION VIS.JS
-============================================================ */
+/* KONfigurazio GRAfikoa (Aktual) GEOMETRIE D'UNE PENSEE */
 
 const options = {
 
@@ -115,7 +110,7 @@ barnesHut: {
 
     collision: {
     enabled: true,
-    overlap: 0.2, // Tolérance minimale (0 = pas de chevauchement autorisé)
+    overlap: 0.2, // Tolérance au chevauchement (0 = pas de)
     backfaceCulling: false,
 
     repulsion: {
@@ -144,9 +139,7 @@ data,
 options
 );
 
-/* ============================================================
-6. OUTILS
-============================================================ */
+/* 6. OUTILS */
 
 function setStatus(message) {
 
@@ -171,18 +164,6 @@ ende.innerText = message;
 ende.className = type;
 }
 
-/*
-
-    Identifiant stable pour une liaison.
-
-    On trie les deux extrémités pour considérer :
-
-    A -> B
-
-    B -> A
-
-    comme la même liaison.
-    */
     function generateEdgeId(a, b) {
 
 const first = String(a);
@@ -197,9 +178,7 @@ ordered[0] +
 ordered[1];
 }
 
-/* ============================================================
-7. SÉLECTION VISUELLE
-============================================================ */
+/* IKUsmen HAUtaketa */
 
 function updateVisualSelection() {
 
@@ -209,39 +188,27 @@ nodes.get();
 const updates = [];
 
 allNodes.forEach(node => {
-
 if (
   selectedNodeIds.includes(node.id)
 ) {
-
   updates.push({
     id: node.id,
-
     color: "#ff9999",
-
     borderWidth: 4,
-
     font: {
       color: "#000000"
     }
   });
-
 } else {
-
   updates.push({
     id: node.id,
-
     color: "#ffffff",
-
     borderWidth: 1,
-
     font: {
       color: "#333333"
     }
   });
-
 }
-
 });
 
 if (updates.length > 0) {
@@ -249,9 +216,7 @@ nodes.update(updates);
 }
 }
 
-/* ============================================================
-8. CLIC SUR LA TOILE
-============================================================ */
+/* CLIC */
 
 network.on("click", function(params) {
 
@@ -265,14 +230,9 @@ if (params.nodes.length > 0) {
 const clickedId =
   params.nodes[0];
 
-
-/*
- * On utilise l'événement original du clic.
- */
 const originalEvent =
   params.event &&
   params.event.srcEvent;
-
 
 const multiSelect =
   originalEvent &&
@@ -283,35 +243,29 @@ const multiSelect =
 
 
 if (multiSelect) {
-
   const index =
     selectedNodeIds.indexOf(clickedId);
 
 
   if (index > -1) {
-
     selectedNodeIds.splice(
       index,
       1
     );
 
   } else {
-
     selectedNodeIds.push(
       clickedId
     );
   }
 
 } else {
-
   selectedNodeIds = [
     clickedId
   ];
 }
 
-
 updateVisualSelection();
-
 
 if (selectedNodeIds.length > 0) {
 
@@ -320,7 +274,6 @@ if (selectedNodeIds.length > 0) {
     " nœud(s) sélectionné(s). " +
     "Ctrl+Clic pour en ajouter."
   );
-
 
   if (linkBtn) {
 
@@ -359,9 +312,7 @@ if (linkBtn) {
 
 });
 
-/* ============================================================
-9. AJOUT D'UN NŒUD
-============================================================ */
+/* 9. ARITHMETIE D'UN FRAGMENT DE PENSEE */
 
 async function rentePermission() {
 
@@ -373,10 +324,7 @@ if (
 !textInput.value.trim()
 ) {
 
-alert(
-  "Le texte ne peut pas être vide."
-);
-
+alert( "L'innomable texte est vide." );
 return;
 
 }
@@ -414,48 +362,27 @@ entique.classList.contains("active")
 ? "italic "
 : "";
 
-/*
-
-    Timestamp suffisamment unique pour cette installation.
-    */
     const newId =
     Date.now();
 
 const newNode = {
-
 id: newId,
-
 label: textValue,
 
 font: {
-
   face: selectedFont,
-
   size: 14,
-
   style:
     italicVal +
     boldVal,
-
   color: "#000000"
 },
 
 color: "#ffffff",
-
 borderWidth: 1
-
 };
 
-/*
-
-    Ajout immédiat dans Vis.js.
-    */
     nodes.add(newNode);
-
-/*
-
-    Sauvegarde Supabase.
-    */
     const nodeSaved =
     await saveNodeToSupabase(
     newNode
@@ -463,10 +390,7 @@ borderWidth: 1
 
 if (!nodeSaved) {
 
-/*
- * Si Supabase échoue, le nœud reste
- * quand même dans le cache local.
- */
+/* Echec global, conservation locale. */
 setStatus(
   "Fragment ajouté localement — " +
   "erreur de connexion Supabase."
@@ -474,41 +398,29 @@ setStatus(
 
 }
 
-/*
-
-    Création des liens vers les nœuds sélectionnés.
-    */
+/* Création des liens vers les nœuds sélectionnés. */
     if (
     selectedNodeIds.length > 0
     ) {
 
 const newEdges = [];
 
-
 selectedNodeIds.forEach(
   targetId => {
 
     const edge = {
-
       id: generateEdgeId(
         targetId,
         newId
       ),
-
       from: targetId,
-
       to: newId
     };
 
-
-    /*
-     * Éviter les doublons.
-     */
     const exists =
       edges.get(
         edge.id
       );
-
 
     if (!exists) {
       newEdges.push(edge);
@@ -528,17 +440,11 @@ if (newEdges.length > 0) {
 }
 
 
-setStatus(
-  "Fragment ajouté et lié à " +
-  selectedNodeIds.length +
-  " autre(s)."
-);
-
-
+setStatus("Liéé / Livréé ");
+        
 selectedNodeIds = [];
-
+        
 updateVisualSelection();
-
 
 const linkBtn =
   document.getElementById(
@@ -563,9 +469,7 @@ textInput.value = "";
 saveLocalData();
 }
 
-/* ============================================================
-10. CRÉATION DE LIENS ENTRE ANCIENS NŒUDS
-============================================================ */
+/* 10. CRÉATION DE LIENS ENTRE ANCIENS NŒUDS */
 
 async function createLinkBetweenSelected() {
 
@@ -574,8 +478,8 @@ selectedNodeIds.length < 2
 ) {
 
 alert(
-  "Sélectionnez au moins 2 nœuds " +
-  "(avec Ctrl+Clic) pour créer " +
+  "Livrés par deux " +
+  "(avec Ctrl+Clic)" +
   "un lien entre eux."
 );
 
@@ -612,11 +516,8 @@ const exists =
 if (!exists) {
 
   newEdges.push({
-
     id: edgeId,
-
     from: sourceId,
-
     to: targetId
   });
 
@@ -625,27 +526,14 @@ if (!exists) {
 }
 
 if (newEdges.length > 0) {
-
 edges.add(newEdges);
-
 await saveEdgesToSupabase(
   newEdges
 );
 
 
-setStatus(
-  "Liens créés entre les " +
-  selectedNodeIds.length +
-  " nœuds."
-);
-
-} else {
-
-setStatus(
-  "Ces nœuds sont déjà tous reliés."
-);
-
-}
+setStatus("Liéés - Livréés ");
+} else { setStatus("Iels sont déjà livréés"); }
 
 selectedNodeIds = [];
 
@@ -663,9 +551,7 @@ linkBtn.style.display = "none";
 saveLocalData();
 }
 
-/* ============================================================
-11. STYLE : GRAS
-============================================================ */
+/* 11. STYLE & GRAISSE */
 
 function toggleBold() {
 
@@ -696,9 +582,7 @@ btn.classList.contains("active")
 : "#000";
 }
 
-/* ============================================================
-12. STYLE : ITALIQUE
-============================================================ */
+/* 12. STYLE & ITALIQUE */
 
 function toggleItalic() {
 
@@ -729,9 +613,7 @@ btn.classList.contains("active")
 : "#000";
 }
 
-/* ============================================================
-13. CHOIX DE LA POLICE
-============================================================ */
+/* 13. POLICE & STYLE (EXPRESSION, OPPRESSION, REPRESSION) */
 
 function setFont(face) {
 
@@ -747,9 +629,7 @@ select.value = face;
 }
 }
 
-/* ============================================================
-14. RECHERCHE
-============================================================ */
+/* 14. ACHARNER */
 
 function searchInWeb() {
 
@@ -828,15 +708,15 @@ setTimeout(() => {
 } else {
 
 setStatus(
-  "Aucun fragment ne contient ce terme."
+  "Rien ne contenait ce terme. Contenez ce terme ? La phrase est-elle incapable de contenir \n"
+  "le\n"
+    "terme"
 );
 
 }
 }
 
-/* ============================================================
-15. CACHE LOCAL
-============================================================ */
+/* 15. CACHE LOCAL */
 
 function saveLocalData() {
 
@@ -876,55 +756,37 @@ saveLocalData();
 
 });
 
-/* ============================================================
-16. SUPABASE : CONVERSION NODE -> ROW
-============================================================ */
+/* 16. SUPABASE : CONVERSION NODE -> ROW */
 
 function nodeToRow(node) {
 
 return {
-
+    
 id: Number(node.id),
-
-label:
-  node.label || "",
-
-font:
-  node.font || {},
-
-color:
-  node.color || "#ffffff",
-
-border_width:
-  node.borderWidth || 1,
-
+label: node.label || "",
+font: node.font || {},
+color: node.color || "#ffffff",
+border_width: node.borderWidth || 1,
 x:
   typeof node.x === "number"
     ? node.x
     : null,
-
 y:
   typeof node.y === "number"
     ? node.y
     : null,
-
-updated_at:
-  new Date().toISOString()
-
+updated_at: new Date().toISOString()
 };
 }
 
-/* ============================================================
-17. SUPABASE : SAUVEGARDE D'UN NODE
-============================================================ */
+/* 17. SUPABASE : SAUVEGARDE D'UN NODE */
 
 async function saveNodeToSupabase(node) {
 
 try {
-
+    
 const row =
   nodeToRow(node);
-
 
 const {
   error
@@ -939,12 +801,10 @@ const {
 
 
 if (error) {
-
   console.error(
     "Erreur Supabase node :",
     error
   );
-
   return false;
 }
 
@@ -963,9 +823,7 @@ return false;
 }
 }
 
-/* ============================================================
-18. SUPABASE : SAUVEGARDE DES LIENS
-============================================================ */
+/* 18. SUPABASE : SAUVEGARDE DES LIENS */
 
 async function saveEdgesToSupabase(
 edgeList
@@ -1032,9 +890,7 @@ return false;
 }
 }
 
-/* ============================================================
-19. CHARGEMENT INITIAL DE SUPABASE
-============================================================ */
+/* 19. CHARGEMENT INITIAL DE SUPABASE */
 
 async function loadFromSupabase() {
 
@@ -1083,28 +939,16 @@ const remoteNodes =
 const remoteEdges =
   edgesResponse.data || [];
 
-
-/*
- * Supabase devient la source principale.
- */
 if (remoteNodes.length > 0) {
 
   applyingRemoteChange = true;
-
-
   nodes.clear();
-
-
   const visNodes =
     remoteNodes.map(row => {
-
       const node = {
-
         id: Number(row.id),
-
         label:
           row.label,
-
         font:
           row.font || {
             size: 14,
@@ -1113,39 +957,24 @@ if (remoteNodes.length > 0) {
 
         color:
           row.color || "#ffffff",
-
         borderWidth:
           row.border_width || 1
       };
 
-
-      /*
-       * Restaurer les coordonnées si elles existent.
-       */
       if (
         typeof row.x === "number"
-      ) {
-        node.x = row.x;
-      }
+      ) { node.x = row.x; }
 
 
       if (
         typeof row.y === "number"
-      ) {
-        node.y = row.y;
-      }
-
-
+      ) {  node.y = row.y;  }
       return node;
     });
 
 
   nodes.add(visNodes);
-
-
   edges.clear();
-
-
   edges.add(
     remoteEdges.map(row => ({
 
@@ -1158,43 +987,30 @@ if (remoteNodes.length > 0) {
 
       from:
         Number(row.source_id),
-
       to:
         Number(row.target_id)
     }))
   );
 
-
   applyingRemoteChange = false;
 
-
   saveLocalData();
-
 
   setStatus(
     remoteNodes.length +
     " fragment(s) chargés depuis la toile."
   );
 
-
 } else {
 
-  /*
-   * La base est vide.
-   *
-   * On conserve les données locales existantes.
-   * Elles pourront être publiées avec
-   * publishLocalData().
-   */
   setStatus(
     "Toile Supabase vide — " +
     "données locales conservées."
   );
 }
 
-
 setConnectionStatus(
-  "● Toile collaborative connectée",
+  "Toile collaborative connectée",
   "online"
 );
 
@@ -1218,14 +1034,7 @@ setStatus(
 
 }
 }
-/* ============================================================
-20. PUBLICATION DES DONNÉES LOCALES
-
-Utile si votre ancienne toile contient déjà
-des données dans localStorage.
-
-Elle permet de les envoyer une fois vers Supabase.
-============================================================ */
+/* 20. LOCAL TO GLOBAL */
 
 async function publishLocalData() {
 
@@ -1238,13 +1047,8 @@ edges.get();
 if (
 localNodes.length === 0
 ) {
-
-alert(
-  "Aucune donnée locale à publier."
-);
-
+alert("Aucune donnée locale à publier.");
 return;
-
 }
 
 setStatus(
@@ -1278,9 +1082,7 @@ setStatus(
 );
 }
 
-/* ============================================================
-21. REALTIME SUPABASE
-============================================================ */
+/* 21. REALTIME SUPABASE */
 
 function setupRealtime() {
 
@@ -1290,7 +1092,7 @@ supabaseClient
 "proxemie-collaboration"
 )
 
-  /* ---------------- NODE INSERT ---------------- */
+  /* ---------------- INSERT ---------------- */
 
   .on(
     "postgres_changes",
@@ -1309,7 +1111,7 @@ supabaseClient
   )
 
 
-  /* ---------------- NODE UPDATE ---------------- */
+  /* ---------------- UPDATE ---------------- */
 
   .on(
     "postgres_changes",
@@ -1328,7 +1130,7 @@ supabaseClient
   )
 
 
-  /* ---------------- NODE DELETE ---------------- */
+  /* ---------------- DELETE ---------------- */
 
   .on(
     "postgres_changes",
@@ -1347,7 +1149,7 @@ supabaseClient
   )
 
 
-  /* ---------------- EDGE INSERT ---------------- */
+  /* ---------------- E. INSERT ---------------- */
 
   .on(
     "postgres_changes",
@@ -1358,7 +1160,6 @@ supabaseClient
     },
 
     payload => {
-
       applyRemoteEdge(
         payload.new
       );
@@ -1366,7 +1167,7 @@ supabaseClient
   )
 
 
-  /* ---------------- EDGE UPDATE ---------------- */
+  /* ---------------- E. UPDATE ---------------- */
 
   .on(
     "postgres_changes",
@@ -1385,7 +1186,7 @@ supabaseClient
   )
 
 
-  /* ---------------- EDGE DELETE ---------------- */
+  /* ---------------- E.E DELETE ---------------- */
 
   .on(
     "postgres_changes",
@@ -1406,7 +1207,6 @@ supabaseClient
 
   .subscribe(
     (status, error) => {
-
       console.log(
         "Realtime :",
         status
@@ -1414,7 +1214,6 @@ supabaseClient
 
 
       if (error) {
-
         console.error(
           "Realtime error :",
           error
@@ -1426,14 +1225,10 @@ supabaseClient
 return channel;
 }
 
-/* ============================================================
-22. APPLIQUER UN NODE DISTANT
-============================================================ */
+/* 22. AQBON */
 
 function applyRemoteNode(row) {
-
 if (!row) return;
-
 const node = {
 
 id:
@@ -1469,21 +1264,11 @@ node.y = row.y;
 }
 
 applyingRemoteChange = true;
-
-/*
-
-    Si le nœud existe, update.
-
-    Sinon, add.
-    */
+    
     if (nodes.get(node.id)) {
-
 nodes.update(node);
-
 } else {
-
 nodes.add(node);
-
 }
 
 applyingRemoteChange = false;
@@ -1491,28 +1276,21 @@ applyingRemoteChange = false;
 saveLocalData();
 }
 
-/* ============================================================
-23. SUPPRESSION D'UN NODE DISTANT
-============================================================ */
+/* 23. SUPPRESS */
 
 function applyRemoteNodeDelete(row) {
 
 if (!row) return;
-
 applyingRemoteChange = true;
-
 nodes.remove(
 Number(row.id)
 );
 
 applyingRemoteChange = false;
-
 saveLocalData();
 }
 
-/* ============================================================
-24. APPLIQUER UNE LIAISON DISTANTE
-============================================================ */
+/* 24. LIVRAISON DISTANTE / DOMICILES */
 
 function applyRemoteEdge(row) {
 
@@ -1543,10 +1321,6 @@ edges.update(edge);
 
 } else {
 
-/*
- * Ne créer la liaison que si les deux
- * nœuds existent déjà.
- */
 if (
   nodes.get(edge.from) &&
   nodes.get(edge.to)
@@ -1562,43 +1336,27 @@ applyingRemoteChange = false;
 saveLocalData();
 }
 
-/* ============================================================
-25. SUPPRESSION D'UNE LIAISON DISTANTE
-============================================================ */
+/* 25. SUPPRESS BIS */
 
 function applyRemoteEdgeDelete(row) {
-
 if (!row) return;
-
 applyingRemoteChange = true;
-
 if (row.id) {
-
 edges.remove(row.id);
-
 } else {
-
 edges.remove(
   generateEdgeId(
     row.source_id,
     row.target_id
   )
 );
-
 }
 
 applyingRemoteChange = false;
 
 saveLocalData();
 }
-/* ============================================================
-26. SAUVEGARDE DES POSITIONS
-
-Quand quelqu'un déplace un nœud, sa position x/y est
-enregistrée dans Supabase.
-
-Cela permet de conserver aussi la composition graphique.
-============================================================ */
+/* 26. PLACES sauvegardées */
 
 network.on(
 "dragEnd",
@@ -1682,9 +1440,7 @@ saveLocalData();
 }
 );
 
-/* ============================================================
-27. DÉPLACEMENT DE L'INTERFACE
-============================================================ */
+/* 27. DOMICILE MOBILE */
 
 const uiLayer =
 document.getElementById(
@@ -1708,7 +1464,6 @@ uiLayer.addEventListener(
   const tag =
     e.target.tagName;
 
-
   if (
     tag === "INPUT" ||
     tag === "TEXTAREA" ||
@@ -1716,36 +1471,23 @@ uiLayer.addEventListener(
     tag === "SELECT" ||
     tag === "OPTION"
   ) {
-
     return;
   }
 
-
   isDragging = true;
-
-
   startX =
     e.clientX;
-
   startY =
     e.clientY;
-
-
   const rect =
     uiLayer.getBoundingClientRect();
-
-
   initialLeft =
     rect.left;
-
   initialTop =
     rect.top;
-
-
   uiLayer.style.cursor =
     "move";
 }
-
 );
 
 document.addEventListener(
@@ -1753,32 +1495,19 @@ document.addEventListener(
 (e) => {
 
   if (!isDragging) return;
-
-
   const dx =
     e.clientX - startX;
-
-
   const dy =
     e.clientY - startY;
-
-
   uiLayer.style.left =
     (initialLeft + dx) + "px";
-
-
   uiLayer.style.top =
     (initialTop + dy) + "px";
-
-
   uiLayer.style.right =
     "auto";
-
-
   uiLayer.style.bottom =
     "auto";
 }
-
 );
 
 document.addEventListener(
@@ -1786,10 +1515,7 @@ document.addEventListener(
 () => {
 
   isDragging = false;
-
-
   if (uiLayer) {
-
     uiLayer.style.cursor =
       "grab";
   }
@@ -1798,9 +1524,7 @@ document.addEventListener(
 );
 }
 
-/* ============================================================
-28. ENTREE
-============================================================ */
+/* 28. ENTREE (si tel est ton désir ?) */
 
 (async function init() {
 saveLocalData();
