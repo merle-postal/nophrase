@@ -54,7 +54,7 @@ const nodes = new vis.DataSet(nodesArray);
 const edges = new vis.DataSet(edgesArray);
 
 const container =
-document.getElementById("mynetwork");
+document.getElementById("jeandebaumetz");
 
 const data = {
 nodes: nodes,
@@ -1449,7 +1449,7 @@ saveLocalData();
 
 const uiLayer =
 document.getElementById(
-"ui-layer"
+"extrait-blanc"
 );
 
 if (uiLayer) {
