@@ -3,7 +3,7 @@
 
 <head> <meta charset="UTF-8">
 
-	<title>Enonçant général</title>
+	<title>Enonçante générale</title>
 
 	<script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -13,12 +13,12 @@
 		font-family: sans-serif;
 		overflow: hidden;
 		background: #f0f0f0; }
-			#mynetwork {
+			#jeandebaumetz {
 		width: 100vw;
 		height: 100vh;
 		display: block; }
 		
-		/* L'interface utilisateur (boîte blanche) */ #ui-layer { 
+		/* BOX */ #extrait-blanc { 
 		position: absolute;
 		top: 20px;
 		left: 20px;
@@ -31,11 +31,64 @@
 		z-index: 1000; border:
 		1px solid #ccc; } 
 		
-		#ui-layer:active {
-		cursor: move; } 
+		#extrait-blanc:active { cursor: move; } 
 		
 		.active { 
-		background-color: #000 !important; color: #fff !important; border: 1px solid #000; } /* Style général des boutons */ button { cursor: pointer; border: 1px solid #999; background: #fff; padding: 5px 10px; margin: 2px; font-size: 14px; } button:hover { background: #fff; } /* Zone de texte */ textarea { width: 100%; box-sizing: border-box; margin-bottom: 10px; padding: 5px; font-family: sans-serif; font-size: 14px; resize: vertical; border: 1px solid #ccc; border-radius: 4px; } /* Inputs et selects */ input[type="text"], select { padding: 5px; margin-top: 5px; border: 1px solid #fff; border-radius: 0px; width: 100%; box-sizing: border-box; } /* Petit texte de statut */ #status { font-size: 11px; color: #666; margin-bottom: 8px; font-style: italic; border-bottom: 1px solid #eee; padding-bottom: 4px; } hr { border: 0; border-top: 1px solid #ddd; margin: 10px 0; } label { font-size: 12px; font-weight: bold; display: block; margin-bottom: 3px; } #fontFace { background-color: #ffffff; color: #000000; /* Bordures et forme */ border: 1px solid #fff; border-radius: 0px; /* Dimensions et espacement */ padding: 5px 8px; font-size: 14px; font-family: sans-serif; /* Curseur */ cursor: pointer; /* Tentative de forçage pour les navigateurs modernes */ appearance: none; -webkit-appearance: none; -moz-appearance: none; } /* Indicateur de connexion Supabase */ #ende { font-size: 11px; color: #666; margin-bottom: 8px; font-style: italic; } </style> </head> <body> <!-- ZONE DE L'INTERFACE (UI) --> <div id="ui-layer">
+		background-color: #000 !important; 
+		color: #fff !important;
+		border: 1px solid #000; }
+	
+		button {
+		cursor: pointer;
+		border: 1px solid #999;
+		background: #fff;
+		padding: 5px 10px;
+		margin: 2px; font-size: 14px; }
+		
+		button:hover { background: #fff; }
+		
+		textarea { width: 100%;
+		box-sizing: border-box;
+		margin-bottom: 10px;
+		padding: 5px;
+		font-family: sans-serif;
+		font-size: 14px; 
+		resize: vertical;
+		border: 1px solid #ccc;
+		border-radius: 4px; }
+		
+		input[type="text"], select {
+			padding: 5px;
+			margin-top: 5px;
+			border: 1px solid #fff;
+			border-radius: 0px;
+			width: 100%; box-sizing: border-box; } 
+		
+		#status { font-size: 11px; color: #545; margin-bottom: 8px;
+			font-style: italic; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+		hr { border: 0; border-top: 1px solid #ddd; margin: 10px 0; }
+		label { font-size: 12px; font-weight: bold; display: block; margin-bottom: 3px; }
+		
+		#fontFace { background-color: #ffffff;
+			color: #000000; border: 1px solid #fff;
+			border-radius: 0px; 
+			padding: 5px 8px;
+			font-size: 14px;
+			font-family: sans-serif; 
+			cursor: pointer; 
+			appearance: none;
+			-webkit-appearance: none;
+			-moz-appearance: none; } 
+		
+		#ende { font-size: 11px;
+			   color: #666; margin-bottom: 8px;
+			   font-style: italic; }
+	</style>
+</head>
+	
+<body> 
+	
+<div id="extrait-blanc">
 
 <!-- Statut/Messages -->
 <div id="status">Maniez un lieu pour vous y lier.</div>
@@ -85,4 +138,4 @@
     <button onclick="searchInWeb()" style="margin:0;">OK</button>
 </div>
 
-</div> <!-- ZONE DE LA TOILE (RÉSEAU) --> <div id="mynetwork"></div> <!-- Chargement du script collaboratif --> <script src="script.js"></script> </body> </html>
+</div> <!-- ZONE DE LA TOILE (RÉSEAU) --> <div id="jeandebaumetz"></div> <!-- Chargement du script collaboratif --> <script src="script.js"></script> </body> </html>
