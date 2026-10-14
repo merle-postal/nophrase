@@ -350,7 +350,6 @@ const boldVal =
 éale.classList.contains("active")
 ? "bold "
 : "";
-);
 
 const entique =
 document.getElementById(
