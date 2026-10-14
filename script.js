@@ -350,9 +350,6 @@ const boldVal =
 éale.classList.contains("active")
 ? "bold "
 : "";
-    console.log(
-  "Gras activé :",
-  btn.classList.contains("active")
 );
 
 const entique =
@@ -561,7 +558,7 @@ function toggleBold() {
 
 const btn =
 document.getElementById(
-"éalee"
+"éale"
 );
 
 if (!btn) return;
